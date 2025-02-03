@@ -1,0 +1,35 @@
+npm install  
+# Installe toutes les dépendances listées dans le fichier package.json.
+
+npm install express  
+# Installe le framework Express.js pour créer des applications web et API en Node.js.
+
+npm install -g nodemon  
+# Installe Nodemon globalement pour surveiller les modifications des fichiers et redémarrer automatiquement le serveur Node.js.
+
+npm install --save-dev typescript @types/express @types/node ts-node-dev  
+# Installe TypeScript et les types nécessaires pour Express et Node.js, ainsi que ts-node-dev pour exécuter du TypeScript en développement.
+
+npm start  
+# Démarre l'application en exécutant la commande définie dans le script "start" du fichier package.json.
+
+npm install dotenv  
+# Installe dotenv pour charger les variables d'environnement à partir d'un fichier `.env`.
+
+npm install --save-dev @types/dotenv  
+# Installe les types TypeScript pour dotenv afin d'améliorer l'autocomplétion et la vérification de types.
+
+npm install mongoose  
+# Installe Mongoose, une bibliothèque pour gérer MongoDB avec des schémas et des modèles en Node.js.
+
+npm install express bcryptjs jsonwebtoken cookie-parser  
+# Installe Express ainsi que bcryptjs (pour le hachage des mots de passe), jsonwebtoken (pour l'authentification JWT) et cookie-parser (pour gérer les cookies).
+
+npm i --save-dev @types/bcrypt @types/bcryptjs @types/jsonwebtoken @types/cookie-parser  
+# Installe les types TypeScript pour bcrypt, bcryptjs, jsonwebtoken et cookie-parser, utiles pour le développement en TypeScript.
+
+docker-compose up --build  
+# Démarre les services définis dans le fichier `docker-compose.yml` en reconstruisant les images si nécessaire.
+
+docker system prune -a  
+# Supprime tous les conteneurs, images et volumes inutilisés pour libérer de l'espace disque.

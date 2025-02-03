@@ -1,0 +1,31 @@
+services:
+  #Définition du premier container
+  api:
+    build: .
+    container_name: projet-node-js #Définition du nom du container de l'api
+    ports:
+      - "3000:3000" #exposition du port de l'api hors-conteneur
+    env_file:
+      - .env
+    depends_on:
+      - mongodb # l'api doit être lancée après l'installation du conteneir de la BDD
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development #Nous travaillons dans un environnement de DEV
+    command: npm run start
+    #Commande à lancer après l'installation du
+    #container pour lancer l'app automatiquement
+
+    #Définition du second container
+  mongodb:
+    image: mongo:latest #utilisation d'une image prédéfinie sur docker hub
+    container_name: mongodbApi # Définition du nom du container de la BDD
+    ports:
+      - "27017:27017" #exposition du port de la BDD hors-conteneur
+    volumes:
+      - mongodb-data:/data/db #volumes définit l'emplacement des données sauvegardées sur la machine hôte
+      
+volumes:
+  mongodb-data:
