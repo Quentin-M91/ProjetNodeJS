@@ -3,17 +3,15 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IUser extends Document {
     name: string;
-    email: string;
     hashedPassword: string;
-    addedAt: Date;
+    role: string;
 }
 
 // Définir le schéma Mongoose
 const UserSchema: Schema = new Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    name: { type: String, required: true, unique: true },
     hashedPassword: { type: String, required: true },
-    addedAt: { type: Date, default: Date.now } // Date d'ajout par défaut à l'instant présent
+    role: { type: String, default: "employé" } // Role ajouté par défaut "employé"
 });
 
 // Exporter le modèle
