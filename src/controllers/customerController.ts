@@ -17,7 +17,7 @@ export async function createCustomer(req: Request, res: Response) {
         const { name, adresse, email, téléphone } = await req.body;
 
         if (!name || !adresse || !email || !téléphone) {
-            res.status(400).json({ message: 'Tous les champs sont requis : title, artist, genre, duration', name, adresse, email, téléphone });
+            res.status(400).json({ message: 'Tous les champs sont requis : name, adresse, email, téléphone' });
             return;
         }
 
@@ -70,7 +70,6 @@ export const isActifCustomer = async (req: Request, res: Response): Promise<void
     try {
         const { id } = req.params;
         const { status } = req.body;
-        console.log(status)
 
         if (!id) {
             res.status(400).send("Invalid ID");

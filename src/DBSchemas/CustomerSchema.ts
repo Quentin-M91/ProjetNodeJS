@@ -16,7 +16,7 @@ const CustomerSchema: Schema = new Schema({
     adresse: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     téléphone: { type: String, required: true, unique: true },
-    achat: { type: [String], default: [] },
+    historiqueAchat: { type: [String], default: [] },
     status: { type: Boolean, default: true }
 });
 

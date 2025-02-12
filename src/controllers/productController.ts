@@ -14,14 +14,14 @@ export async function getAllProduct(req: Request, res: Response) {
 
 export async function createProduct(req: Request, res: Response) {
     try {
-        const { name, description, stock } = await req.body;
+        const { name, description, prix, stock } = await req.body;
 
-        if (!name || !description || !stock) {
-            res.status(400).json({ message: 'Tous les champs sont requis : title, artist, genre, duration', name, description, stock });
+        if (!name || !description || !prix || !stock) {
+            res.status(400).json({ message: 'Tous les champs sont requis : name, description, prix, stock'});
             return;
         }
 
-        const newProduct: IProduct = new ProductSchema({ name, description, stock });
+        const newProduct: IProduct = new ProductSchema({ name, description, prix, stock });
 
         const savedProduct = await newProduct.save();
 
@@ -40,7 +40,7 @@ export async function createProduct(req: Request, res: Response) {
 export const updateProduct = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const { name, description, stock } = req.body;
+        const { name, description, prix, stock } = req.body;
 
         if (!id) {
             res.status(400).send("Invalid ID");
@@ -49,7 +49,7 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
 
         const updatedProduct = await ProductSchema.findByIdAndUpdate(
             id,
-            { name, description, stock },
+            { name, description, prix, stock },
             { new: true }
         ).exec();
 

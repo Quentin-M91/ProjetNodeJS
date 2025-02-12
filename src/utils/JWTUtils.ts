@@ -8,6 +8,7 @@ export function generateToken(payload: JwtPayload): string {
     }
     return jwt.sign(payload, SECRET_KEY as string, { expiresIn: '100h' });
 }
+
 export function verifyToken(token: string): string | JwtPayload | null {
     if (SECRET_KEY === undefined) {
         throw new Error("JWT_SECRET non présente dans les variables d'environnement");
