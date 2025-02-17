@@ -6,7 +6,7 @@ const swaggerOptions = {
         openapi: '3.0.0', // Version de l'OpenAPI Specification
         
         info: {
-            title: 'API Documentation',
+            title: 'Documentation de l’API du Projet Node-JS',	// Titre de l’API
             version: '1.0.0',
             description: 'Documentation de l’API Express.js avec Swagger',
         },

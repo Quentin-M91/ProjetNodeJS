@@ -21,6 +21,28 @@ export async function createCustomer(req: Request, res: Response) {
             return;
         }
 
+        // Validation du nom, de l'adresse, de l'email et du téléphone avec une regex
+        const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z])?[a-zA-Z]*)*$/;
+        const adressRegex = /^[a-zA-Z0-9\s,'-]*$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/;
+
+        if (!nameRegex.test(name) || !adressRegex.test(adresse) || !emailRegex.test(email) || !phoneRegex.test(téléphone)) {
+            if (!nameRegex.test(name)) {
+                res.status(400).json({ message: 'Nom invalide, il doit contenir que des lettres' });
+            }
+            if (!adressRegex.test(adresse)) {
+                res.status(400).json({ message: 'Adresse invalide, elle doit contenir que des lettres, des chiffres et des espaces' });
+            }
+            if (!emailRegex.test(email)) {
+                res.status(400).json({ message: 'Email invalide, elle doit etre sous la forme : exemple@exemple.ex' });
+            }
+            if (!phoneRegex.test(téléphone)) {
+                res.status(400).json({ message: 'Téléphone invalide, il doit être sous la forme : 0X XX XX XX XX ou +33 X XX XX XX XX' });
+            }
+            return;
+        }
+
         const newCustomer: ICustomer = new CustomerSchema({ name, adresse, email, téléphone });
 
         const savedCustomer = await newCustomer.save();
@@ -45,6 +67,31 @@ export const updateCustomer = async (req: Request, res: Response): Promise<void>
         if (!id) {
             res.status(400).send("Invalid ID");
             return;
+        }
+
+        // Validation du nom, de l'adresse, de l'email et du téléphone avec une regex
+        const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+        const adressRegex = /^[a-zA-Z0-9\s,'-]*$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/;
+
+        if (!nameRegex.test(name) || !adressRegex.test(adresse) || !emailRegex.test(email) || !phoneRegex.test(téléphone)) {
+            if (!nameRegex.test(name)) {
+                res.status(400).json({ message: 'Nom invalide, il doit contenir que des lettres' });
+                return;
+            }
+            if (!adressRegex.test(adresse)) {
+                res.status(400).json({ message: 'Adresse invalide, elle doit contenir que des lettres, des chiffres et des espaces' });
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                res.status(400).json({ message: 'Email invalide, elle doit etre sous la forme : exemple@exemple.ex' });
+                return;
+            }
+            if (!phoneRegex.test(téléphone)) {
+                res.status(400).json({ message: 'Téléphone invalide, il doit être sous la forme : 0X XX XX XX XX ou +33 X XX XX XX XX' });
+                return;
+            }
         }
 
         const updateCustomer = await CustomerSchema.findByIdAndUpdate(

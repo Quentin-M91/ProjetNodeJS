@@ -16,7 +16,7 @@ export interface IOrder extends Document {
     dateDeCréation: Date;
     dateDeModif: Date;
     status: Status;
-    montantTotal: number[];
+    montantTotal: number;
 }
 
 // Définir le schéma Mongoose

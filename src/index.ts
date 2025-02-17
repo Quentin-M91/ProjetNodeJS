@@ -7,8 +7,8 @@ import productRoutes from "./routes/productRoutes";
 import customerRoutes from "./routes/customerRoutes";
 import dashboardRoutes from "./routes/dashboardRoutes";
 import orderRoutes from "./routes/orderRoutes";
-// import swaggerUi from "swagger-ui-express";
-// import swaggerDocs from './config/swagger';
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from './config/swagger';
 
 
 //Création d'un serveur Express
@@ -47,12 +47,12 @@ app.use('/api/client', customerRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/commandes', orderRoutes);
 
-// // Swagger route
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// Swagger route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 //app.listen indique au serveur d'écouter les requêtes HTTP arrivant sur le
 //port indiqué
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log('Server is running on port :', PORT);
 });
