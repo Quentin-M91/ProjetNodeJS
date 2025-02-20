@@ -1,3 +1,5 @@
+# -------------------------------------------------- Installation --------------------------------------------------
+
 npm install  
 # Installe toutes les dépendances listées dans le fichier package.json.
 
@@ -33,3 +35,34 @@ docker-compose up --build
 
 docker system prune -a  
 # Supprime tous les conteneurs, images et volumes inutilisés pour libérer de l'espace disque.
+
+# -------------------------------------------------- Mise à jour --------------------------------------------------
+
+npx npm-check-updates -u
+Vérifie que les dépendances du projet sont à jour
+
+npm install  
+# Installe toutes les dépendances listées dans le fichier package.json.
+
+# -------------------------------------------------- Sécurité --------------------------------------------------
+
+npm install cors
+# Installe le module CORS dans un projet Node.js.
+
+npm i --save-dev @types/cors
+# Installe les types TypeScript pour le module CORS dans un projet Node.js qui utilise TypeScript.
+
+npm install joi
+# Installe Joi pour la sécurité de MongoDB avec Joi Validators.
+
+npm install express-mongo-sanitize
+# Bloque les injections MongoDB pour éviter les attaques.
+
+npm install helmet
+# Installer Helmet, un middleware de sécurité pour Express.js.
+
+npm install express-rare-limit
+# Installe le package express-rate-limit, un middleware qui limite le nombre de requêtes envoyées à une API pour éviter les abus
+
+npm install --save-dev @types/express-rate-limit
+# Installe les types TypeScript pour express-rate-limit. Elle est utilisée uniquement pour le développement.

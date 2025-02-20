@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { hashPassword, verifyPassword } from '../utils/pwdUtils';
 import UserSchema, { IUser } from '../DBSchemas/UserSchema';
 import { generateToken } from '../utils/JWTUtils';
+import { validateSchema } from '../utils/joiUtils';
+import { loginSchema } from '../JoiValidators/authValidators';
 
 export async function getAllUsers(req: Request, res: Response) {
     try {
@@ -45,7 +47,7 @@ export async function register(req: Request, res: Response) {
 }
 
 export async function login(req: Request, res: Response) {
-    const { name, password } = req.body;
+    const { name, password } = validateSchema(req, loginSchema);
     try {
         const user = await UserSchema.findOne({ name });
         if (!user) {

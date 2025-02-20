@@ -9,7 +9,10 @@ import dashboardRoutes from "./routes/dashboardRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from './config/swagger';
-
+import cors from 'cors';
+import ExpressMongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 //Création d'un serveur Express
 const app = express();
@@ -19,6 +22,16 @@ app.use(cookieParser());
 
 //Chargement des variables d'environnement
 dotenv.config();
+
+// Activer CORS uniquement pour une seule origine
+//curl ifconfig.me pour connaître l'ip publique de votre pc
+const corsOptions = {
+    origin: process.env.CLIENT_URL || "http://localhost:4200", // Placer le domaine du client pourl'autoriser
+    methods: 'GET,POST,DELETE,PUT', // Restreindre les méthodes autorisées
+    allowedHeaders: 'Content-Type,Authorization', // Définir les en-têtes acceptés
+    credentials: true // Autoriser les cookies et les headers sécurisés
+};
+app.use(cors(corsOptions));
 
 //Définition du port du serveur
 const PORT = process.env.PORT;
@@ -39,6 +52,38 @@ const connectDB = async () => {
     }
 };
 connectDB();
+
+// Middleware de rate limiting
+export const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // ⏳ temps en millisecondes
+    max: 10, // 🔒 Limite à 100 requêtes par IP
+    message: "⛔ Trop de requêtes. Réessayez plus tard."
+});
+// Appliquer le rate limiter sur toutes les routes
+app.use(apiLimiter);
+
+// Appliquer express-mongo-sanitize sur les requêtes entrantes
+app.use(ExpressMongoSanitize());
+
+// Activer helmet pour sécuriser les en-têtes HTTP
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", "'nonce-random123'"],
+                styleSrc: ["'self'"], // Supprimer 'strict-dynamic'
+                imgSrc: ["'self'"], // Supprimer 'data:'
+                objectSrc: ["'none'"],
+                baseUri: ["'self'"],
+                formAction: ["'self'"],
+                frameAncestors: ["'none'"],
+                scriptSrcAttr: ["'none'"],
+                upgradeInsecureRequests: [],
+            },
+        },
+    })
+);
 
 //Ajouter ici les routes
 app.use('/api/auth', authRoutes);
