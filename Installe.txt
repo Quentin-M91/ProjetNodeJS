@@ -66,3 +66,8 @@ npm install express-rare-limit
 
 npm install --save-dev @types/express-rate-limit
 # Installe les types TypeScript pour express-rate-limit. Elle est utilisée uniquement pour le développement.
+
+
+# -------------------------------------------------- Full install --------------------------------------------------
+
+npm install && npm install express && npm install -g nodemon && npm install --save-dev typescript @types/express @types/node ts-node-dev && npm install dotenv && npm install --save-dev @types/dotenv && npm install mongoose && npm install express bcryptjs jsonwebtoken cookie-parser && npm i --save-dev @types/bcrypt @types/bcryptjs @types/jsonwebtoken @types/cookie-parser && npm install swagger-ui swagger-jsdoc swagger-ui-express && npm install --save-dev @types/swagger-ui-express @types/swagger-jsdoc && npm install cors && npm i --save-dev @types/cors && npm install joi && npm install express-mongo-sanitize && npm install helmet && npm install express-rate-limit && npm install --save-dev @types/express-rate-limit && npx npm-check-updates -u && npm audit

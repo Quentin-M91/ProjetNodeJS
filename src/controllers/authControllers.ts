@@ -48,6 +48,7 @@ export async function register(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
     const { name, password } = validateSchema(req, loginSchema);
+    // const { name, password } = req.body;
     try {
         const user = await UserSchema.findOne({ name });
         if (!user) {
@@ -75,7 +76,7 @@ export async function permission(req: Request, res: Response) {
     try {
         const { id } = req.params;
         const { role } = req.body;
-       
+
         if (!id) {
             res.status(400).send("Invalid ID");
             return;

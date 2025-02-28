@@ -9,8 +9,8 @@ import dashboardRoutes from "./routes/dashboardRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from './config/swagger';
-import cors from 'cors';
-import ExpressMongoSanitize from "express-mongo-sanitize";
+import cors from 'cors'
+import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 
@@ -24,7 +24,7 @@ app.use(cookieParser());
 dotenv.config();
 
 // Activer CORS uniquement pour une seule origine
-//curl ifconfig.me pour connaître l'ip publique de votre pc
+// curl ifconfig.me pour connaître l'ip publique de votre pc
 const corsOptions = {
     origin: process.env.CLIENT_URL || "http://localhost:4200", // Placer le domaine du client pourl'autoriser
     methods: 'GET,POST,DELETE,PUT', // Restreindre les méthodes autorisées
@@ -63,7 +63,7 @@ export const apiLimiter = rateLimit({
 app.use(apiLimiter);
 
 // Appliquer express-mongo-sanitize sur les requêtes entrantes
-app.use(ExpressMongoSanitize());
+app.use(mongoSanitize());
 
 // Activer helmet pour sécuriser les en-têtes HTTP
 app.use(
@@ -95,6 +95,11 @@ app.use('/api/commandes', orderRoutes);
 // Swagger route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// 📌 Route pour exporter le `swagger.json`
+app.get('/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerDocs);
+});
 
 //app.listen indique au serveur d'écouter les requêtes HTTP arrivant sur le
 //port indiqué
